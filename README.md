@@ -111,18 +111,23 @@ Actor / Component 复用需要协调注册状态、所有权、激活状态、�
 **已有实践**
 
 - **UE 动画导出**：实验性 Editor 插件从 AnimSequence 采样并导出骨架、参考姿态和动作数据。
-- **数据约束与预处理**：处理坐标与单位转换、骨架拓扑和语义骨骼校验，并检查混合骨架等不兼容输入。
+- **数据约束与预处理**：保留原生帧率和逐帧时间，处理坐标、骨架与语义映射；增加名称规则标签、家族划分和仅训练帧统计量。
 - **训练工具入口**：增加自定义 UE 骨架的 VQ-VAE、Pose、Root 训练入口，以及检查点保存、续训和指标记录。
+- **质量评估与推理导出**：加入真实帧掩码、几何监督和短姿态采样，提供原生时间 HTML 对照、量化旁路诊断及完整/仅解码 FP32 推理包。
 - **参考演示适配**：对上游工程做游戏动画方向的裁剪，补充中文交互界面和 Windows 参考演示启动器。
 
-**当前阶段**：非常早期，重点仍是数据与训练工具。真实 UE 资产的完整流程、完整训练与生成质量尚待验证；UE 运行时推理和 AnimGraph 姿态输出尚未实现。
+**当前阶段**：已完成真实 UE 资产导出、GPU 训练和留出集骨架重建评估，仍属早期实验。短姿态优化有收益也有退步；文字生成、动作混合、UE 运行时推理和 AnimGraph 姿态输出尚未完成验证。
 
 <details>
 <summary><strong>展开：验证基础、运行时设想与上游边界</strong></summary>
 
 #### 已有验证基础
 
-项目文档记录了 UE 5.8.2 模块编译与链接，以及合成动画夹具上的 CPU 小网络训练和续训测试。这些验证用于检查工具链，不等于真实角色数据、GPU 完整训练或动画质量已经通过。
+UE 5.8.2 插件实际导出 1,728 段 UEFN Mannequin 动画，保留原生 30/60 FPS。30 FPS 数据划分为 1,355 段训练、189 段验证、178 段测试；两轮 VQ-VAE 均在 RTX 4070 Laptop GPU 上训练 20,000 步，完整网络保持约 2,540 万参数。
+
+同一测试集的平均姿态误差从 7.63 降到 7.37 cm，6 段极短姿态从 17.78 降到 10.87 cm；但 121/178 段误差上升，走跑蹲类有所退步，所以保留上一轮为通用基线。本结果是已知动作的 VQ 编码重建，不是文字生成效果；名称家族划分也不等同于录制级独立测试。
+
+完整 FP32 推理包约 102 MB，仅解码包约 54 MB。后者需要兼容 token，不能单独生成动画；尚未完成 UE 运行时接入。数据、权重和具体测量边界见项目实验记录。
 
 #### 后续运行时方向
 
@@ -136,7 +141,7 @@ Actor / Component 复用需要协调注册状态、所有权、激活状态、�
 
 </details>
 
-[项目仓库](https://github.com/Aceared0829/AIAnimationSystem) · [UE 导出与训练](https://github.com/Aceared0829/AIAnimationSystem/blob/main/Unreal/AILocomotionSystem/README.md) · [第一阶段方案](https://github.com/Aceared0829/AIAnimationSystem/blob/main/Unreal/AILocomotionSystem/LocomotionPlan.md)
+[项目仓库](https://github.com/Aceared0829/AIAnimationSystem) · [UE 导出与训练](https://github.com/Aceared0829/AIAnimationSystem/blob/main/Unreal/AILocomotionSystem/README.md) · [实验结果与限制](https://github.com/Aceared0829/AIAnimationSystem/blob/main/Unreal/AILocomotionSystem/TrainingResults.md) · [第一阶段方案](https://github.com/Aceared0829/AIAnimationSystem/blob/main/Unreal/AILocomotionSystem/LocomotionPlan.md)
 
 ## VerseAngelScript / VAS
 
