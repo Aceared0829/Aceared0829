@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="440" viewBox="0 0 1200 440" role="img" aria-label="NingHong — Unreal Engine and C++ — Gameplay, Engine, Motion, Tools">
+<defs>
+<linearGradient id="bg" x2="1" y2="1"><stop stop-color="#101b24"/><stop offset=".55" stop-color="#080e16"/><stop offset="1" stop-color="#101d24"/></linearGradient>
+<linearGradient id="accent"><stop stop-color="#adf8ba"/><stop offset="1" stop-color="#53dce9"/></linearGradient>
+<radialGradient id="halo"><stop stop-color="#54e0c1" stop-opacity=".17"/><stop offset="1" stop-color="#54e0c1" stop-opacity="0"/></radialGradient>
+<pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#94c9d2" stroke-opacity=".065"/></pattern>
+<filter id="glow"><feGaussianBlur stdDeviation="4"/></filter>
+</defs>
+<rect x="1" y="1" width="1198" height="438" rx="20" fill="url(#bg)" stroke="#29434a"/>
+<rect x="1" y="1" width="1198" height="438" rx="20" fill="url(#grid)"/>
+<ellipse cx="940" cy="204" rx="340" ry="290" fill="url(#halo)"/>
+<path d="M40 66V40H66M1134 40H1160V66M40 374V400H66M1134 400H1160V374" fill="none" stroke="#8bd8c9" stroke-opacity=".65"/>
+<g font-family="Segoe UI,Arial,sans-serif">
+<text x="68" y="79" fill="#8daab7" font-size="14" letter-spacing="4">NINGHONG / ENGINEERING JOURNAL</text>
+<rect x="68" y="114" width="4" height="107" fill="url(#accent)"/>
+<text x="94" y="198" fill="#f0f6f9" font-size="100" font-weight="800" letter-spacing="-5">NingHong<tspan fill="#91f2bb">.</tspan></text>
+<text x="94" y="246" fill="#b8c9d3" font-size="23" letter-spacing="4">UNREAL ENGINE  /  C++</text>
+<text x="94" y="290" fill="#80a1ad" font-size="16" letter-spacing="1">Build the systems. Understand the engine.</text>
+<path d="M68 333H1132" stroke="#2a424c"/>
+<text x="68" y="373" fill="#c9d9e1" font-size="16" letter-spacing="3">GAMEPLAY<tspan fill="#597985">   /   </tspan>ENGINE<tspan fill="#597985">   /   </tspan>MOTION<tspan fill="#597985">   /   </tspan>TOOLS</text>
+<circle cx="968" cy="367" r="4" fill="#a3f8b8"/>
+<text x="984" y="372" fill="#89b8ad" font-size="12" letter-spacing="2">ALWAYS BUILDING</text>
+</g>
+<g fill="none" stroke="#76dfcc">
+<ellipse cx="936" cy="197" rx="187" ry="64" transform="rotate(-29 936 197)" opacity=".2"/>
+<ellipse cx="936" cy="197" rx="154" ry="90" transform="rotate(38 936 197)" opacity=".15"/>
+<path d="M936 52V319M780 271L1091 102M781 118L1090 281" stroke-dasharray="3 7" opacity=".28"/>
+<path d="M936 94L1033 148V248L936 303L839 248V148Z" stroke-opacity=".35"/>
+<path d="M936 109L1018 156L936 204L854 156Z" fill="#193e40" stroke-width="1.5"/>
+<path d="M854 156V242L936 290V204Z" fill="#10262e" stroke-opacity=".6"/>
+<path d="M1018 156V242L936 290V204Z" fill="#18353c" stroke-opacity=".75"/>
+<path d="M936 139L991 171L936 203L881 171Z" fill="#367e70" stroke="#b4ffcf" stroke-width="2"/>
+<path d="M936 203V261M881 171V229L936 261L991 229V171" stroke-opacity=".7"/>
+<path d="M936 174V233M909 190L962 219M961 190L910 220" stroke="#c7ffdc" stroke-width="2"/>
+<path d="M791 114L838 141M1035 253L1081 280M1027 142L1080 112M797 281L839 257" stroke-width="2" opacity=".8"/>
+</g>
+<g fill="#b9ffcd"><circle cx="936" cy="94" r="4"/><circle cx="839" cy="248" r="4"/><circle cx="1033" cy="148" r="4"/><circle cx="1081" cy="280" r="3"/></g>
+<g fill="#649794" font-family="monospace" font-size="10" letter-spacing="1"><text x="1048" y="93">STRUCTURE</text><text x="757" y="309">BEHAVIOR</text><text x="994" y="317">LIFECYCLE</text></g>
+</svg>

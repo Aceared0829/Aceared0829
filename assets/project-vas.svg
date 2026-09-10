@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="176" viewBox="0 0 1200 176" role="img" aria-label="VerseAngelScript — EARLY STAGE">
+<defs><linearGradient id="b"><stop stop-color="#111d27"/><stop offset="1" stop-color="#0b131d"/></linearGradient></defs>
+<rect x="1" y="1" width="1198" height="174" rx="14" fill="url(#b)" stroke="#2a3b47"/>
+<path d="M1 44V132" stroke="#b7b5f2" stroke-width="3"/>
+<text x="30" y="46" font-family="monospace" font-size="15" fill="#b7b5f2">04 /</text>
+<g font-family="Segoe UI,Arial,sans-serif"><text x="92" y="45" font-size="14" letter-spacing="3" fill="#85a2b2">LANGUAGE &amp; TOOLING</text>
+<text x="90" y="98" font-size="43" font-weight="700" letter-spacing="-1" fill="#edf3f7">VerseAngelScript</text>
+<text x="92" y="137" font-size="17" letter-spacing="2" fill="#91a9b7">ANGELSCRIPT / RIDER / C++</text>
+<text x="1158" y="150" text-anchor="end" font-family="monospace" font-size="12" letter-spacing="1" fill="#b7b5f2">EARLY STAGE</text></g>
+<g stroke="#b7b5f2" fill="none" stroke-width="2" stroke-linejoin="round" opacity=".7"><path d="M987 47L959 86L987 125M1062 47L1090 86L1062 125M1040 44L1008 128"/><path d="M1113 64V106M936 69V101" opacity=".4"/></g>
+<path d="M1143 35H1161V53M1160 36L1138 58" stroke="#b7b5f2" stroke-width="2" fill="none"/>
+</svg>

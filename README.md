@@ -1,26 +1,51 @@
 <p align="center">
-  <img src="assets/ninghong-banner.png" alt="NingHong / Gameplay, Engine, Motion" width="100%">
+  <img src="assets/ninghong-tech.svg" alt="NingHong — Unreal Engine / C++ · Gameplay / Engine / Motion / Tools" width="100%">
 </p>
 
 <p align="center">
   <strong>我是宁鸿，围绕 Unreal Engine / C++ 学习和实践。</strong><br>
-  从 Gameplay 到引擎源码，从角色动画到脚本工具链，<br>
-  希望把具体功能做出来，也逐步理解它背后的运行机制。
+  从 Gameplay 到引擎源码，从角色动画到脚本工具链。<br>
+  <sub>把功能做出来，也把它背后的运行机制弄明白。</sub>
 </p>
 
 <p align="center">
-  <a href="#zerog">ZeroG</a> &nbsp; · &nbsp;
-  <a href="#ue-object-pool">UE 对象池</a> &nbsp; · &nbsp;
-  <a href="#aianimationsystem">AIAnimationSystem</a><br>
-  <a href="#verseangelscript--vas">VAS</a> &nbsp; · &nbsp;
-  <a href="#unrealagent">UnrealAgent</a> &nbsp; · &nbsp;
-  <a href="#hybrid-motion-imitation">Hybrid-Motion-Imitation</a> &nbsp; · &nbsp;
-  <a href="https://github.com/Aceared0829?tab=repositories">全部仓库</a>
+  <a href="https://github.com/Aceared0829?tab=repositories">探索仓库 ↗</a> &nbsp; / &nbsp;
+  <a href="#engineering-notes">实现与验证 ↓</a> &nbsp; / &nbsp;
+  <a href="#关注与交流">关注与交流 ↓</a>
 </p>
 
-> **项目状态**：UnrealAgent 已独立开源，处于 Beta；ZeroG 和 UE 对象池仍在开发；AIAnimationSystem 与 VAS 处于早期探索；Hybrid-Motion-Imitation 目前仅 Fork。这里既展示已经落地的工作，也保留尚未完成的部分。
+## Selected work
 
-## UnrealAgent
+<sub>精选工程实践 &nbsp; / &nbsp; 点击封面进入源码，展开下方笔记查看实现与边界。</sub>
+
+[![UnrealAgent](assets/project-unrealagent.svg)](https://github.com/Aceared0829/UnrealAgent)
+
+把智能体工作流带进 Unreal Editor。 <sub> / Beta · MIT</sub>
+
+[![ZeroG](assets/project-zerog.svg)](https://github.com/Aceared0829/ZeroG)
+
+战斗、角色运动与动画协作的 C++ 技术原型。 <sub> / 开发中</sub>
+
+[![UE Object Pool](assets/project-engine.svg)](https://github.com/Aceared0829/UnrealEngine/tree/fix/generic-object-pool-lifecycle)
+
+深入 Actor / Component 原生生命周期与对象复用。 <sub> / 开发中 · 引擎访问需授权</sub>
+
+[![VerseAngelScript](assets/project-vas.svg)](https://github.com/Aceared0829/VerseAngelScript)
+
+从脚本语言约定到 Rider 开发体验。 <sub> / 早期探索</sub>
+
+### Motion lab
+
+**[AIAnimationSystem ↗](https://github.com/Aceared0829/AIAnimationSystem)** · 基于 NVIDIA MotionBricks 的 UE 动画导出、自定义骨架训练与重建评估实验。仍在早期探索，UE 运行时推理尚未完成验证。
+
+<sub>阅读储备：<a href="https://github.com/Aceared0829/Hybrid-Motion-Imitation">Hybrid-Motion-Imitation</a> 目前仅 Fork，尚无个人实现或复现成果。</sub>
+
+## Engineering notes
+
+展示具体做了什么，也记录尚未完成的部分。以下保留项目细节、上游来源与验证范围。
+
+<details>
+<summary><strong>UnrealAgent</strong> — 实现、状态与验证边界</summary>
 
 **将 Codex / Cursor 智能体工作流接入 Unreal Editor 的开源 C++ 插件。** 从采集项目中独立拆出，采用 MIT 许可证，目前为 Beta。
 
@@ -31,7 +56,10 @@
 
 [源码与安装说明](https://github.com/Aceared0829/UnrealAgent) · [验证边界](https://github.com/Aceared0829/UnrealAgent/blob/main/Docs/FinalAcceptance.md)
 
-## ZeroG
+</details>
+
+<details>
+<summary><strong>ZeroG</strong> — 实现、状态与验证边界</summary>
 
 <p><img src="assets/status-wip.svg" alt="开发中，尚未完成" width="87" height="20"> &nbsp; <sub>GAMEPLAY / GAS / TRAVERSAL</sub></p>
 
@@ -74,7 +102,10 @@
 
 [源码](https://github.com/Aceared0829/ZeroG) · [架构说明](https://github.com/Aceared0829/ZeroG/blob/codex/open-source/Docs/ARCHITECTURE.md) · [验证记录](https://github.com/Aceared0829/ZeroG/blob/codex/open-source/Docs/VALIDATION.md) · [可编辑工程资源](https://github.com/Aceared0829/ZeroG/releases)
 
-## UE Object Pool
+</details>
+
+<details>
+<summary><strong>UE Object Pool</strong> — 实现、状态与验证边界</summary>
 
 <p><img src="assets/status-wip.svg" alt="开发中，持续完善" width="87" height="20"> &nbsp; <sub>ENGINE / LIFECYCLE / REUSE</sub></p>
 
@@ -114,7 +145,10 @@ Actor / Component 复用需要协调注册状态、所有权、激活状态、�
 
 <sub>上述引擎源码与 PR 需要相应的 Epic / GitHub 访问权限；贡献提交不代表官方采纳或背书。</sub>
 
-## AIAnimationSystem
+</details>
+
+<details>
+<summary><strong>AIAnimationSystem</strong> — 实现、状态与验证边界</summary>
 
 <p><img src="assets/status-early.svg" alt="早期实验" width="87" height="20"> &nbsp; <sub>ANIMATION / DATA / TRAINING</sub></p>
 
@@ -155,7 +189,10 @@ UE 5.8.2 插件实际导出 1,728 段 UEFN Mannequin 动画，保留原生 30/60
 
 [项目仓库](https://github.com/Aceared0829/AIAnimationSystem) · [UE 导出与训练](https://github.com/Aceared0829/AIAnimationSystem/blob/main/Unreal/AILocomotionSystem/README.md) · [实验结果与限制](https://github.com/Aceared0829/AIAnimationSystem/blob/main/Unreal/AILocomotionSystem/TrainingResults.md) · [第一阶段方案](https://github.com/Aceared0829/AIAnimationSystem/blob/main/Unreal/AILocomotionSystem/LocomotionPlan.md)
 
-## VerseAngelScript / VAS
+</details>
+
+<details>
+<summary><strong>VerseAngelScript / VAS</strong> — 实现、状态与验证边界</summary>
 
 <p><img src="assets/status-early.svg" alt="非常早期" width="87" height="20"> &nbsp; <sub>LANGUAGE / TOOLCHAIN / RIDER</sub></p>
 
@@ -190,7 +227,10 @@ UE 5.8.2 插件实际导出 1,728 段 UEFN Mannequin 动画，保留原生 30/60
 
 [项目愿景与状态](https://github.com/Aceared0829/VerseAngelScript) · [Rider 插件说明](https://github.com/Aceared0829/VerseAngelScript/blob/master/plugins/rider/README.md) · [工具源码与测试入口](https://github.com/Aceared0829/VerseAngelScript/blob/master/tools/rider-plugin/README.md)
 
-## Hybrid-Motion-Imitation
+</details>
+
+<details>
+<summary><strong>Hybrid-Motion-Imitation</strong> — 实现、状态与验证边界</summary>
 
 <p><img src="assets/status-planned.svg" alt="已 Fork，尚未开始" width="89" height="20"> &nbsp; <sub>MOTION IMITATION / PLANNED</sub></p>
 
@@ -201,6 +241,8 @@ UE 5.8.2 插件实际导出 1,728 段 UEFN Mannequin 动画，保留原生 30/60
 - **成果归属**：仓库中已有的方法、代码与演示来自上游，不作为我的开发成果展示。
 
 [我的 Fork](https://github.com/Aceared0829/Hybrid-Motion-Imitation) · [上游项目](https://github.com/jiashunwang/Hybrid-Motion-Imitation)
+
+</details>
 
 ## 关注与交流
 
@@ -222,7 +264,7 @@ UE 5.8.2 插件实际导出 1,728 段 UEFN Mannequin 动画，保留原生 30/60
 
 Fork 项目保留上游来源与适用许可。自有增量、引擎代码、第三方模型和资源不能混为一份个人成果或统一授权的素材库。
 
-顶部横幅是个人主页概念插画，不是项目运行截图。
+视觉更新于 **2026-09-10**。横幅与项目封面为原创矢量设计，不是项目运行截图，也不代表性能测量结果。
 
 </details>
 
