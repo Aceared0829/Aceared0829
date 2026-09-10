@@ -2,9 +2,9 @@
 
 ## Vector Identity / 2026-09-10
 
-The current profile uses original, hand-authored SVG artwork: `ninghong-tech.svg` and the four `project-*.svg` covers. Dark graphite surfaces, mint/cyan accents, engineering grids and geometric line drawings form a consistent visual identity. These are decorative illustrations, not runtime screenshots or measured performance diagrams.
+The current profile uses original, hand-authored SVG artwork: `ninghong-tech.svg` and the five `project-*.svg` covers. Dark graphite surfaces, mint/cyan accents, engineering grids and geometric line drawings form a consistent visual identity. These are decorative illustrations, not runtime screenshots or measured performance diagrams. The AIAnimationSystem cover uses a stylized joint-and-motion drawing and appears before VerseAngelScript.
 
-All five SVGs are self-contained: no scripts, remote fonts, tracking pixels or external image dependencies. Repository links and explanatory text remain in the Markdown so the page is still usable without images. Project maturity labels describe the existing documented status, not a new validation run.
+All six SVGs are self-contained: no scripts, remote fonts, tracking pixels or external image dependencies. Repository links and explanatory text remain in the Markdown so the page is still usable without images. Project maturity labels describe the existing documented status, not a new validation run.
 
 The previous PNG banner is retained below with its original provenance.
 

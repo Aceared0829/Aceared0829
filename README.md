@@ -16,7 +16,7 @@
 
 ## Selected work
 
-<sub>精选工程实践 &nbsp; / &nbsp; 点击封面进入源码，展开下方笔记查看实现与边界。</sub>
+<sub>精选工程实践 &nbsp; / &nbsp; 点击封面进入源码，下方笔记默认展开，直接查看实现与边界。</sub>
 
 [![UnrealAgent](assets/project-unrealagent.svg)](https://github.com/Aceared0829/UnrealAgent)
 
@@ -30,13 +30,13 @@
 
 深入 Actor / Component 原生生命周期与对象复用。 <sub> / 开发中 · 引擎访问需授权</sub>
 
+[![AIAnimationSystem](assets/project-animation.svg)](https://github.com/Aceared0829/AIAnimationSystem)
+
+基于 NVIDIA MotionBricks 的 UE 动画导出、自定义骨架训练与重建评估实验。 <sub> / 早期探索 · UE 运行时推理待验证</sub>
+
 [![VerseAngelScript](assets/project-vas.svg)](https://github.com/Aceared0829/VerseAngelScript)
 
 从脚本语言约定到 Rider 开发体验。 <sub> / 早期探索</sub>
-
-### Motion lab
-
-**[AIAnimationSystem ↗](https://github.com/Aceared0829/AIAnimationSystem)** · 基于 NVIDIA MotionBricks 的 UE 动画导出、自定义骨架训练与重建评估实验。仍在早期探索，UE 运行时推理尚未完成验证。
 
 <sub>阅读储备：<a href="https://github.com/Aceared0829/Hybrid-Motion-Imitation">Hybrid-Motion-Imitation</a> 目前仅 Fork，尚无个人实现或复现成果。</sub>
 
@@ -44,7 +44,7 @@
 
 展示具体做了什么，也记录尚未完成的部分。以下保留项目细节、上游来源与验证范围。
 
-<details>
+<details open>
 <summary><strong>UnrealAgent</strong> — 实现、状态与验证边界</summary>
 
 **将 Codex / Cursor 智能体工作流接入 Unreal Editor 的开源 C++ 插件。** 从采集项目中独立拆出，采用 MIT 许可证，目前为 Beta。
@@ -58,7 +58,7 @@
 
 </details>
 
-<details>
+<details open>
 <summary><strong>ZeroG</strong> — 实现、状态与验证边界</summary>
 
 <p><img src="assets/status-wip.svg" alt="开发中，尚未完成" width="87" height="20"> &nbsp; <sub>GAMEPLAY / GAS / TRAVERSAL</sub></p>
@@ -74,8 +74,8 @@
 
 **当前阶段**：源码和可编辑工程资源已经公开，但它仍是原型。地图、资产引用、动画表现、多人玩法和完整 Cook / 游戏包启动仍需继续完善或验证。
 
-<details>
-<summary><strong>展开：模块关系、回归验证与后续工作</strong></summary>
+<details open>
+<summary><strong>模块关系、回归验证与后续工作</strong></summary>
 
 #### 模块与数据
 
@@ -104,7 +104,7 @@
 
 </details>
 
-<details>
+<details open>
 <summary><strong>UE Object Pool</strong> — 实现、状态与验证边界</summary>
 
 <p><img src="assets/status-wip.svg" alt="开发中，持续完善" width="87" height="20"> &nbsp; <sub>ENGINE / LIFECYCLE / REUSE</sub></p>
@@ -120,8 +120,8 @@
 
 **当前阶段**：已有实现和自动化测试，仍在完善适用范围与验证。已提交 [Epic PR #15156](https://github.com/EpicGames/UnrealEngine/pull/15156)，截至本页整理时尚未合入。
 
-<details>
-<summary><strong>展开：设计关注点、测试范围与限制</strong></summary>
+<details open>
+<summary><strong>设计关注点、测试范围与限制</strong></summary>
 
 #### 不只是“把对象藏起来”
 
@@ -147,7 +147,7 @@ Actor / Component 复用需要协调注册状态、所有权、激活状态、�
 
 </details>
 
-<details>
+<details open>
 <summary><strong>AIAnimationSystem</strong> — 实现、状态与验证边界</summary>
 
 <p><img src="assets/status-early.svg" alt="早期实验" width="87" height="20"> &nbsp; <sub>ANIMATION / DATA / TRAINING</sub></p>
@@ -164,8 +164,8 @@ Actor / Component 复用需要协调注册状态、所有权、激活状态、�
 
 **当前阶段**：已完成真实 UE 资产导出、GPU 训练和留出集骨架重建评估，仍属早期实验。短姿态优化有收益也有退步；文字生成、动作混合、UE 运行时推理和 AnimGraph 姿态输出尚未完成验证。
 
-<details>
-<summary><strong>展开：验证基础、运行时设想与上游边界</strong></summary>
+<details open>
+<summary><strong>验证基础、运行时设想与上游边界</strong></summary>
 
 #### 已有验证基础
 
@@ -191,7 +191,7 @@ UE 5.8.2 插件实际导出 1,728 段 UEFN Mannequin 动画，保留原生 30/60
 
 </details>
 
-<details>
+<details open>
 <summary><strong>VerseAngelScript / VAS</strong> — 实现、状态与验证边界</summary>
 
 <p><img src="assets/status-early.svg" alt="非常早期" width="87" height="20"> &nbsp; <sub>LANGUAGE / TOOLCHAIN / RIDER</sub></p>
@@ -207,8 +207,8 @@ UE 5.8.2 插件实际导出 1,728 段 UEFN Mannequin 动画，保留原生 30/60
 
 **当前阶段**：语言本体仍然非常初步，现阶段工作主要集中在基础工程与工具支持。VAS 自有语言扩展、UE 绑定、热更新和可视化编辑尚未实现。
 
-<details>
-<summary><strong>展开：语言愿景、工具链与尚未实现的部分</strong></summary>
+<details open>
+<summary><strong>语言愿景、工具链与尚未实现的部分</strong></summary>
 
 #### 基础来自哪里
 
@@ -229,7 +229,7 @@ UE 5.8.2 插件实际导出 1,728 段 UEFN Mannequin 动画，保留原生 30/60
 
 </details>
 
-<details>
+<details open>
 <summary><strong>Hybrid-Motion-Imitation</strong> — 实现、状态与验证边界</summary>
 
 <p><img src="assets/status-planned.svg" alt="已 Fork，尚未开始" width="89" height="20"> &nbsp; <sub>MOTION IMITATION / PLANNED</sub></p>
@@ -255,7 +255,7 @@ UE 5.8.2 插件实际导出 1,728 段 UEFN Mannequin 动画，保留原生 30/60
 
 这些是正在实践和学习的方向，不是已经完成的能力清单。欢迎围绕具体实现、问题复现、设计取舍和改进建议交流。
 
-<details>
+<details open>
 <summary>关于进度与来源</summary>
 
 项目状态整理于 **2026-09-08**。公开说明对应当时可访问的仓库与文档，后续进度、实现和验证以各项目的最新记录为准。
