@@ -18,10 +18,6 @@
 
 <sub>精选工程实践 &nbsp; / &nbsp; 点击封面进入源码，下方笔记默认展开，直接查看实现与边界。</sub>
 
-[![UnrealAgent](assets/project-unrealagent.svg)](https://github.com/Aceared0829/UnrealAgent)
-
-把智能体工作流带进 Unreal Editor。 <sub> / Beta · MIT</sub>
-
 [![ZeroG](assets/project-zerog.svg)](https://github.com/Aceared0829/ZeroG)
 
 战斗、角色运动与动画协作的 C++ 技术原型。 <sub> / 开发中</sub>
@@ -43,18 +39,6 @@
 ## Engineering notes
 
 展示具体做了什么，也记录尚未完成的部分。以下保留项目细节、上游来源与验证范围。
-
-<details open>
-<summary><strong>UnrealAgent</strong> — 实现、状态与验证边界</summary>
-
-**将 Codex / Cursor 智能体工作流接入 Unreal Editor 的开源 C++ 插件。** 从采集项目中独立拆出，采用 MIT 许可证，目前为 Beta。
-
-- **编辑器工作流**：Slate 会话面板、ACP 适配、流式反馈，以及通过本机 MCP 调用结构化编辑器工具。
-- **工具执行与扩展**：参数校验、风险审批、协作式取消、事务与审计；通过 Provider SDK 注册外部工具。
-- **来源与边界**：Agent 推理由外部 Codex / Cursor 完成；Action 契约保留 ue-mcp 的上游兼容基线，不将目录数量等同于全部原创或全场景验证。
-- **当前阶段**：Windows / UE 5.8 开发基线；Codex ACP 已更新至 1.11.0，其他系统、引擎版本及完整场景覆盖仍需验证。
-
-[源码与安装说明](https://github.com/Aceared0829/UnrealAgent) · [验证边界](https://github.com/Aceared0829/UnrealAgent/blob/main/Docs/FinalAcceptance.md)
 
 </details>
 
