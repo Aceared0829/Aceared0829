@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <strong>我是宁鸿，围绕 Unreal Engine / C++ 学习和实践。</strong><br>
+  <strong>我是宁鸿（Zining Zhao），围绕 Unreal Engine / C++ 学习和实践。</strong><br>
   从 Gameplay 到引擎源码，从角色动画到脚本工具链。<br>
   <sub>把功能做出来，也把它背后的运行机制弄明白。</sub>
 </p>
@@ -17,6 +17,10 @@
 ## Selected work
 
 <sub>精选工程实践 &nbsp; / &nbsp; 点击封面进入源码，下方笔记默认展开，直接查看实现与边界。</sub>
+
+[![Zing-0.5](assets/project-zing.svg)](https://arxiv.org/abs/2609.17909)
+
+Zing-0.5 论文署名作者；在团队项目中负责游戏数据采集相关工程。 <sub> / [论文](https://arxiv.org/abs/2609.17909) · [项目仓库](https://github.com/seedleap/zing-world-model)</sub>
 
 [![UnrealAgent](assets/project-unrealagent.svg)](https://github.com/Aceared0829/UnrealAgent)
 
@@ -43,6 +47,21 @@
 ## Engineering notes
 
 展示具体做了什么，也记录尚未完成的部分。以下保留项目细节、上游来源与验证范围。
+
+<details open>
+<summary><strong>Zing-0.5</strong> — 论文署名与个人工程贡献</summary>
+
+**Zing-0.5 是 Seedleap 团队的世界模型项目。** Zining Zhao 列于论文作者名单；我在职期间参与的是数据采集工程，未参与论文撰写。
+
+- **UE 数据采集中台**：参与开发 Unreal Engine 数据采集中台，经历从 0.1 到 1.0 阶段的建设。
+- **第三方游戏采集管线**：开发通过内存注入采集第三方游戏数据的管线。
+- **数据贡献**：为项目提供一批采集数据；不公开未披露的数据规模或数据内容。
+
+项目模型、训练方法和论文写作属于团队工作；上述条目仅说明我的个人贡献。
+
+[论文与作者名单](https://arxiv.org/abs/2609.17909) · [项目仓库](https://github.com/seedleap/zing-world-model)
+
+</details>
 
 <details open>
 <summary><strong>UnrealAgent</strong> — 实现、状态与验证边界</summary>
