@@ -36,7 +36,7 @@ Zing-0.5 论文署名作者；在团队项目中负责游戏数据采集相关�
 
 [![AIAnimationSystem](assets/project-animation.svg)](https://github.com/Aceared0829/AIAnimationSystem)
 
-基于 NVIDIA MotionBricks 的 UE 动画导出、自定义骨架训练与重建评估实验。 <sub> / 早期探索 · UE 运行时推理待验证</sub>
+基于 NVIDIA MotionBricks，探索 UE 动画数据、自定义骨架训练与动画线程 GPU 推理。 <sub> / 实验阶段 · GASP 推理对照已验证</sub>
 
 [![VerseAngelScript](assets/project-vas.svg)](https://github.com/Aceared0829/VerseAngelScript)
 
@@ -181,7 +181,9 @@ Actor / Component 复用需要协调注册状态、所有权、激活状态、�
 - **质量评估与推理导出**：加入真实帧掩码、几何监督和短姿态采样，提供原生时间 HTML 对照、量化旁路诊断及完整/仅解码 FP32 推理包。
 - **参考演示适配**：对上游工程做游戏动画方向的裁剪，补充中文交互界面和 Windows 参考演示启动器。
 
-**当前阶段**：已完成真实 UE 资产导出、GPU 训练和留出集骨架重建评估，仍属早期实验。短姿态优化有收益也有退步；文字生成、动作混合、UE 运行时推理和 AnimGraph 姿态输出尚未完成验证。
+- **GASP 推理实验台**：新增 ONNX 导出、模型契约校验和 AnimGraph 节点，在动画工作线程执行 DirectML GPU 推理；通过固定采样、重叠窗口融合、延迟插值与静止保护改善重建连续性。
+
+**当前阶段**：已完成真实 UE 资产导出、GPU 训练、留出集骨架重建评估，以及 GASP 独立对照场景中的 GPU 推理与 AnimGraph 姿态输出验证。当前模型重建已知源动画；文字生成、玩家意图驱动与正式游戏运行时接入仍待开发和验证。
 
 <details open>
 <summary><strong>验证基础、运行时设想与上游边界</strong></summary>
@@ -192,21 +194,31 @@ UE 5.8.2 插件实际导出 1,728 段 UEFN Mannequin 动画，保留原生 30/60
 
 同一测试集的平均姿态误差从 7.63 降到 7.37 cm，6 段极短姿态从 17.78 降到 10.87 cm；但 121/178 段误差上升，走跑蹲类有所退步，所以保留上一轮为通用基线。本结果是已知动作的 VQ 编码重建，不是文字生成效果；名称家族划分也不等同于录制级独立测试。
 
-完整 FP32 推理包约 102 MB，仅解码包约 54 MB。后者需要兼容 token，不能单独生成动画；尚未完成 UE 运行时接入。数据、权重和具体测量边界见项目实验记录。
+上述离线完整 FP32 推理包约 102 MB，仅解码包约 54 MB。后者需要兼容 token，不能单独生成动画。新的 UE 实验台使用自定义 UE 骨架的 Schema v2 VQ-VAE 导出模型；数据、权重和具体测量边界见项目实验记录。
+
+#### GASP 动画线程推理验证 / 2026-09-22
+
+UE Editor 构建和三项动画自动化测试通过；RTX 4070 Laptop GPU、60 FPS 上限下，三种播放模式均完成 Walk、Run、Crouch、Jump、Traversal、Idle 六类动作测试，推理失败、回退与游戏线程跳过均为零。
+
+默认采用 30 Hz 输入、每 4 帧推理一次和 8 帧延迟融合，播放延迟约 267 ms；同步推理均值 2.055 ms、P95 2.755 ms，包含传输与等待。同源时间区间的主要运动二阶差分降低约 49%–65%，但 Idle 位置误差及 Traversal 旋转误差仍有局限。此结果用于评估重建连续性与推理开销，尚未覆盖完整玩法、打包、多角色并发或长时运行。
+
+[![GASP Walk：延迟对齐的源动画与 GPU 重建对照](https://raw.githubusercontent.com/Aceared0829/AIAnimationSystem/6a2dba3416172526eada3b1240559c04739d0995/unreal-script/AIAnimation/docs/images/walk_comparison.png)](https://github.com/Aceared0829/AIAnimationSystem/blob/main/unreal-script/AIAnimation/README.md)
+
+<sub>实际实验截图；左右角色按同一源时间对齐。点击查看推理链路、连续性图表、性能报告和复现步骤。</sub>
 
 #### 后续运行时方向
 
-计划由 CMC / Mover 负责移动模拟，动画模型依据实际运动状态与轨迹条件生成姿态。运行时推理、目标骨架适配、重定向、接触修正和多人联机仍需逐项实现与验证，目前属于开发方案。
+计划由 CMC / Mover 负责移动模拟，动画模型依据实际运动状态与轨迹条件生成姿态。现有推理插件用于实验和性能验证；生产运行时接口、条件生成、目标骨架适配、重定向、接触修正和多人联机仍需逐项实现与验证。
 
 #### 上游与个人增量
 
-模型架构、动作表示、原训练 / 推理代码、G1 权重与参考演示来自 NVIDIA / MotionBricks。这里的新增工作主要是游戏动画工程适配、UE 导出和自定义骨架训练工具，不将上游模型或演示作为个人自研成果。
+模型架构、动作表示、原训练 / 推理代码、G1 权重与参考演示来自 NVIDIA / MotionBricks。这里的新增工作主要是游戏动画工程适配、UE 导出、自定义骨架训练工具、动画线程推理实验台与连续性评估，不将上游模型或演示作为个人自研成果。
 
 现有 G1 权重与参考骨架绑定；自定义 UE 训练入口不支持直接加载 G1 权重微调，也不能把 G1 参考演示当作 UE 实时运行效果。
 
 </details>
 
-[项目仓库](https://github.com/Aceared0829/AIAnimationSystem) · [UE 导出与训练](https://github.com/Aceared0829/AIAnimationSystem/blob/main/Unreal/AILocomotionSystem/README.md) · [实验结果与限制](https://github.com/Aceared0829/AIAnimationSystem/blob/main/Unreal/AILocomotionSystem/TrainingResults.md) · [第一阶段方案](https://github.com/Aceared0829/AIAnimationSystem/blob/main/Unreal/AILocomotionSystem/LocomotionPlan.md)
+[项目仓库](https://github.com/Aceared0829/AIAnimationSystem) · [UE 导出与训练](https://github.com/Aceared0829/AIAnimationSystem/blob/main/unreal-script/AILocomotionSystem/README.md) · [训练结果与限制](https://github.com/Aceared0829/AIAnimationSystem/blob/main/unreal-script/AILocomotionSystem/TrainingResults.md) · [GASP 推理实验与效果](https://github.com/Aceared0829/AIAnimationSystem/blob/main/unreal-script/AIAnimation/README.md)
 
 </details>
 
@@ -277,7 +289,7 @@ UE 5.8.2 插件实际导出 1,728 段 UEFN Mannequin 动画，保留原生 30/60
 <details open>
 <summary>关于进度与来源</summary>
 
-项目状态整理于 **2026-09-08**。公开说明对应当时可访问的仓库与文档，后续进度、实现和验证以各项目的最新记录为准。
+项目状态最初整理于 **2026-09-08**；AIAnimationSystem 进展同步于 **2026-09-22**。公开说明对应各项注明日期的仓库与文档，后续进度、实现和验证以各项目的最新记录为准。
 
 编译成功、自动化测试通过、真实场景运行与完整交付是不同层次的验证；页面中引用的验证记录只适用于各自注明的版本与范围。
 
