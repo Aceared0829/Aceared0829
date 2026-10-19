@@ -1,26 +1,38 @@
-# NingHong
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/header-dark.svg">
+    <img src="assets/header-light.svg" alt="NingHong — Unreal Engine / C++ · Harness" width="640">
+  </picture>
+</p>
 
-我是宁鸿（Zining Zhao）。主线是 Unreal Engine / C++：Gameplay、引擎源码、角色动画和脚本工具。近来也把自己的 DeepSeek Harness 用法收成一套可以装到别的机器上的插件。
+<p align="center">
+  我是宁鸿（Zining Zhao）。<br>
+  主线是 Unreal Engine / C++；近来也把 DeepSeek Harness 收成可以装到别的机器上的插件。<br>
+  <sub>把功能做出来，也把它背后的运行机制弄明白。</sub>
+</p>
 
-[全部仓库](https://github.com/Aceared0829?tab=repositories) · [实现与验证](#engineering-notes) · [关注与交流](#关注与交流)
+<p align="center">
+  <a href="https://github.com/Aceared0829?tab=repositories">全部仓库</a>
+  &nbsp;&nbsp;·&nbsp;&nbsp;
+  <a href="#engineering-notes">实现与验证</a>
+  &nbsp;&nbsp;·&nbsp;&nbsp;
+  <a href="#关注与交流">关注与交流</a>
+</p>
 
 ## Selected work
 
-点名字进仓库。长说明默认收起，需要时再打开。
+点项目名进入仓库。长说明在下方，默认收起。
 
-### 工具
-
-- **[dsh-kit](https://github.com/Aceared0829/dsh-kit)** — 插件源码、版本清单和一键安装。不含账号和本机路径。
-- **[deepseek-harness](https://github.com/Aceared0829/deepseek-harness)** — 官方 Harness 的个人 fork。引擎在这里，插件不在这里。
-
-### 游戏与引擎
-
-- **[Zing-0.5](https://arxiv.org/abs/2609.17909)** — 论文署名；个人部分是游戏数据采集工程。[项目仓库](https://github.com/seedleap/zing-world-model)
-- **[UnrealAgent](https://github.com/Aceared0829/UnrealAgent)** — 把智能体工作流带进 Unreal Editor。Beta · MIT
-- **[ZeroG](https://github.com/Aceared0829/ZeroG)** — 战斗、角色运动与动画协作的 C++ 原型。开发中
-- **[UE Object Pool](https://github.com/Aceared0829/UnrealEngine/tree/fix/generic-object-pool-lifecycle)** — Actor / Component 生命周期与对象复用。开发中 · 引擎访问需授权
-- **[AIAnimationSystem](https://github.com/Aceared0829/AIAnimationSystem)** — 基于 MotionBricks 的 UE 动画数据、训练与动画线程 GPU 推理。实验阶段
-- **[VerseAngelScript](https://github.com/Aceared0829/VerseAngelScript)** — 从脚本约定到 Rider 开发体验。早期探索
+| 方向 | 项目 | 一句话 |
+|---|---|---|
+| 工具 | [**dsh-kit**](https://github.com/Aceared0829/dsh-kit) | 插件源码、版本清单和一键安装。不含账号和本机路径。 |
+| 工具 | [**deepseek-harness**](https://github.com/Aceared0829/deepseek-harness) | 官方 Harness 的个人 fork。引擎在这里，插件不在这里。 |
+| 论文 | [**Zing-0.5**](https://arxiv.org/abs/2609.17909) | 署名作者；个人部分是游戏数据采集工程。[仓库](https://github.com/seedleap/zing-world-model) |
+| 编辑器 | [**UnrealAgent**](https://github.com/Aceared0829/UnrealAgent) | 把智能体工作流带进 Unreal Editor。Beta · MIT |
+| 原型 | [**ZeroG**](https://github.com/Aceared0829/ZeroG) | 战斗、角色运动与动画协作的 C++ 原型。开发中 |
+| 引擎 | [**UE Object Pool**](https://github.com/Aceared0829/UnrealEngine/tree/fix/generic-object-pool-lifecycle) | Actor / Component 生命周期与对象复用。访问需授权 |
+| 动画 | [**AIAnimationSystem**](https://github.com/Aceared0829/AIAnimationSystem) | MotionBricks 之上的 UE 动画数据、训练与 GPU 推理。实验阶段 |
+| 语言 | [**VerseAngelScript**](https://github.com/Aceared0829/VerseAngelScript) | 从脚本约定到 Rider 开发体验。早期探索 |
 
 阅读储备：[Hybrid-Motion-Imitation](https://github.com/Aceared0829/Hybrid-Motion-Imitation) 目前仅 Fork，尚无个人实现或复现成果。
 
@@ -311,7 +323,7 @@ UE Editor 构建和三项动画自动化测试通过；RTX 4070 Laptop GPU、60 
 
 Fork 项目保留上游来源与适用许可。自有增量、引擎代码、第三方模型和资源不能混为一份个人成果或统一授权的素材库。
 
-页面于 **2026-10-19** 改成文字目录，长说明默认收起。以前的横幅和项目封面还在 `assets/`，不再显示；它们是装饰图，不是运行截图，也不代表性能测量。说明里保留的 GASP 对照图是实验截图。
+页面于 **2026-10-19** 换成随深浅主题切换的字标和项目目录，长说明默认收起。旧的全宽封面还在 `assets/`，不再显示。说明里保留的 GASP 对照图是实验截图，不是装饰。
 
 </details>
 
