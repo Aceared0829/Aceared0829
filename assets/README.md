@@ -2,7 +2,7 @@
 
 ## Vector Identity / 2026-09-10
 
-The current profile uses original, hand-authored SVG artwork: `ninghong-tech.svg` and six `project-*.svg` covers. Dark graphite surfaces, mint/cyan accents, engineering grids and geometric line drawings form a consistent visual identity. These are decorative illustrations, not runtime screenshots or measured performance diagrams. The Zing-0.5 cover depicts a schematic data pipeline and links to the paper; the AIAnimationSystem cover uses a stylized joint-and-motion drawing and appears before VerseAngelScript.
+As of 2026-10-19 the profile page no longer displays these covers. They remain in the repository as unused decorative artwork. The page uses a text index instead. Dark graphite surfaces, mint/cyan accents, engineering grids and geometric line drawings form a consistent visual identity. These are decorative illustrations, not runtime screenshots or measured performance diagrams. The Zing-0.5 cover depicts a schematic data pipeline and links to the paper; the AIAnimationSystem cover uses a stylized joint-and-motion drawing and appears before VerseAngelScript.
 
 All seven SVGs are self-contained: no scripts, remote fonts, tracking pixels or external image dependencies. Repository links and explanatory text remain in the Markdown so the page is still usable without images. Project maturity labels describe the existing documented status, not a new validation run.
 

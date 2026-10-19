@@ -1,54 +1,61 @@
-<p align="center">
-  <img src="assets/ninghong-tech.svg" alt="NingHong — Unreal Engine / C++ · Gameplay / Engine / Motion / Tools" width="100%">
-</p>
+# NingHong
 
-<p align="center">
-  <strong>我是宁鸿（Zining Zhao），围绕 Unreal Engine / C++ 学习和实践。</strong><br>
-  从 Gameplay 到引擎源码，从角色动画到脚本工具链。<br>
-  <sub>把功能做出来，也把它背后的运行机制弄明白。</sub>
-</p>
+我是宁鸿（Zining Zhao）。主线是 Unreal Engine / C++：Gameplay、引擎源码、角色动画和脚本工具。近来也把自己的 DeepSeek Harness 用法收成一套可以装到别的机器上的插件。
 
-<p align="center">
-  <a href="https://github.com/Aceared0829?tab=repositories">探索仓库 ↗</a> &nbsp; / &nbsp;
-  <a href="#engineering-notes">实现与验证 ↓</a> &nbsp; / &nbsp;
-  <a href="#关注与交流">关注与交流 ↓</a>
-</p>
+[全部仓库](https://github.com/Aceared0829?tab=repositories) · [实现与验证](#engineering-notes) · [关注与交流](#关注与交流)
 
 ## Selected work
 
-<sub>精选工程实践 &nbsp; / &nbsp; 点击封面进入源码，下方笔记默认展开，直接查看实现与边界。</sub>
+点名字进仓库。长说明默认收起，需要时再打开。
 
-[![Zing-0.5](assets/project-zing.svg)](https://arxiv.org/abs/2609.17909)
+### 工具
 
-Zing-0.5 论文署名作者；在团队项目中负责游戏数据采集相关工程。 <sub> / [论文](https://arxiv.org/abs/2609.17909) · [项目仓库](https://github.com/seedleap/zing-world-model)</sub>
+- **[dsh-kit](https://github.com/Aceared0829/dsh-kit)** — 插件源码、版本清单和一键安装。不含账号和本机路径。
+- **[deepseek-harness](https://github.com/Aceared0829/deepseek-harness)** — 官方 Harness 的个人 fork。引擎在这里，插件不在这里。
 
-[![UnrealAgent](assets/project-unrealagent.svg)](https://github.com/Aceared0829/UnrealAgent)
+### 游戏与引擎
 
-把智能体工作流带进 Unreal Editor。 <sub> / Beta · MIT</sub>
+- **[Zing-0.5](https://arxiv.org/abs/2609.17909)** — 论文署名；个人部分是游戏数据采集工程。[项目仓库](https://github.com/seedleap/zing-world-model)
+- **[UnrealAgent](https://github.com/Aceared0829/UnrealAgent)** — 把智能体工作流带进 Unreal Editor。Beta · MIT
+- **[ZeroG](https://github.com/Aceared0829/ZeroG)** — 战斗、角色运动与动画协作的 C++ 原型。开发中
+- **[UE Object Pool](https://github.com/Aceared0829/UnrealEngine/tree/fix/generic-object-pool-lifecycle)** — Actor / Component 生命周期与对象复用。开发中 · 引擎访问需授权
+- **[AIAnimationSystem](https://github.com/Aceared0829/AIAnimationSystem)** — 基于 MotionBricks 的 UE 动画数据、训练与动画线程 GPU 推理。实验阶段
+- **[VerseAngelScript](https://github.com/Aceared0829/VerseAngelScript)** — 从脚本约定到 Rider 开发体验。早期探索
 
-[![ZeroG](assets/project-zerog.svg)](https://github.com/Aceared0829/ZeroG)
-
-战斗、角色运动与动画协作的 C++ 技术原型。 <sub> / 开发中</sub>
-
-[![UE Object Pool](assets/project-engine.svg)](https://github.com/Aceared0829/UnrealEngine/tree/fix/generic-object-pool-lifecycle)
-
-深入 Actor / Component 原生生命周期与对象复用。 <sub> / 开发中 · 引擎访问需授权</sub>
-
-[![AIAnimationSystem](assets/project-animation.svg)](https://github.com/Aceared0829/AIAnimationSystem)
-
-基于 NVIDIA MotionBricks，探索 UE 动画数据、自定义骨架训练与动画线程 GPU 推理。 <sub> / 实验阶段 · GASP 推理对照已验证</sub>
-
-[![VerseAngelScript](assets/project-vas.svg)](https://github.com/Aceared0829/VerseAngelScript)
-
-从脚本语言约定到 Rider 开发体验。 <sub> / 早期探索</sub>
-
-<sub>阅读储备：<a href="https://github.com/Aceared0829/Hybrid-Motion-Imitation">Hybrid-Motion-Imitation</a> 目前仅 Fork，尚无个人实现或复现成果。</sub>
+阅读储备：[Hybrid-Motion-Imitation](https://github.com/Aceared0829/Hybrid-Motion-Imitation) 目前仅 Fork，尚无个人实现或复现成果。
 
 ## Engineering notes
 
-展示具体做了什么，也记录尚未完成的部分。以下保留项目细节、上游来源与验证范围。
+展示具体做了什么，也记录尚未完成的部分。以下保留项目细节、上游来源与验证范围。默认收起。
 
-<details open>
+<details>
+<summary><strong>deepseek-harness</strong> — 个人 fork，引擎</summary>
+
+官方仓库的 fork，用来跑我自己构建的 Windows Desktop。不装官方安装包：两边 appId 相同，装官方会覆盖自建包。
+
+插件和本机设置不在这个 fork 里。可以分给别人的部分在 dsh-kit。
+
+[我的 fork](https://github.com/Aceared0829/deepseek-harness) · [上游](https://github.com/deepseek-ai/deepseek-harness)
+
+</details>
+
+<details>
+<summary><strong>dsh-kit</strong> — 插件套件与一键安装</summary>
+
+把这台机器上的插件用法整理成别人也能装的库。对方需要已经有 DeepSeek Harness；安装器不负责重做桌面端。
+
+- 自己写的插件放源码：Grok 连接、desktop-extras、桌宠桥接与生命周期。
+- 别人发布的插件只记包名和版本，安装时从 npm 装。
+- 空的设置层才会写入模板。已有设置不会被覆盖。
+- 账号、令牌、本机路径不入库。Grok 要自己登录。桌宠本体在另一个仓库，没填目录不会自启。
+
+[dsh-kit](https://github.com/Aceared0829/dsh-kit)
+
+[![](https://img.shields.io/badge/powered_by-dsh-4D6BFE?style=flat-square&logo=deepseek&logoColor=white)](https://github.com/deepseek-ai/deepseek-harness)
+
+</details>
+
+<details>
 <summary><strong>Zing-0.5</strong> — 论文署名与个人工程贡献</summary>
 
 **Zing-0.5 是 Seedleap 团队的世界模型项目。** Zining Zhao 列于论文作者名单；我在职期间参与的是数据采集工程，未参与论文撰写。
@@ -63,7 +70,7 @@ Zing-0.5 论文署名作者；在团队项目中负责游戏数据采集相关�
 
 </details>
 
-<details open>
+<details>
 <summary><strong>UnrealAgent</strong> — 实现、状态与验证边界</summary>
 
 **将 Codex / Cursor 智能体工作流接入 Unreal Editor 的开源 C++ 插件。** 从采集项目中独立拆出，采用 MIT 许可证，目前为 Beta。
@@ -77,10 +84,10 @@ Zing-0.5 论文署名作者；在团队项目中负责游戏数据采集相关�
 
 </details>
 
-<details open>
+<details>
 <summary><strong>ZeroG</strong> — 实现、状态与验证边界</summary>
 
-<p><img src="assets/status-wip.svg" alt="开发中，尚未完成" width="87" height="20"> &nbsp; <sub>GAMEPLAY / GAS / TRAVERSAL</sub></p>
+<sub>开发中 · GAMEPLAY / GAS / TRAVERSAL</sub>
 
 **基于 UE 5.8 的 C++ 动作游戏技术验证项目。** 围绕战斗、武器、连招和角色运动，实践游戏逻辑、动画与引擎机制之间的协作。
 
@@ -93,7 +100,7 @@ Zing-0.5 论文署名作者；在团队项目中负责游戏数据采集相关�
 
 **当前阶段**：源码和可编辑工程资源已经公开，但它仍是原型。地图、资产引用、动画表现、多人玩法和完整 Cook / 游戏包启动仍需继续完善或验证。
 
-<details open>
+<details>
 <summary><strong>模块关系、回归验证与后续工作</strong></summary>
 
 #### 模块与数据
@@ -123,10 +130,10 @@ Zing-0.5 论文署名作者；在团队项目中负责游戏数据采集相关�
 
 </details>
 
-<details open>
+<details>
 <summary><strong>UE Object Pool</strong> — 实现、状态与验证边界</summary>
 
-<p><img src="assets/status-wip.svg" alt="开发中，持续完善" width="87" height="20"> &nbsp; <sub>ENGINE / LIFECYCLE / REUSE</sub></p>
+<sub>开发中 · ENGINE / LIFECYCLE / REUSE</sub>
 
 **Unreal Engine 源码分支中的 GenericObjectPool。** 探索按类型配置、显式启用的 Actor / Component 复用机制，将对象池接入引擎原生创建与回收流程。
 
@@ -139,7 +146,7 @@ Zing-0.5 论文署名作者；在团队项目中负责游戏数据采集相关�
 
 **当前阶段**：已有实现和自动化测试，仍在完善适用范围与验证。已提交 [Epic PR #15156](https://github.com/EpicGames/UnrealEngine/pull/15156)，截至本页整理时尚未合入。
 
-<details open>
+<details>
 <summary><strong>设计关注点、测试范围与限制</strong></summary>
 
 #### 不只是“把对象藏起来”
@@ -166,10 +173,10 @@ Actor / Component 复用需要协调注册状态、所有权、激活状态、�
 
 </details>
 
-<details open>
+<details>
 <summary><strong>AIAnimationSystem</strong> — 实现、状态与验证边界</summary>
 
-<p><img src="assets/status-early.svg" alt="早期实验" width="87" height="20"> &nbsp; <sub>ANIMATION / DATA / TRAINING</sub></p>
+<sub>实验阶段 · ANIMATION / DATA / TRAINING</sub>
 
 **面向 Unreal Engine 的 AI 角色动画实验。** 基于 NVIDIA GR00T-WholeBodyControl / MotionBricks，探索从游戏动画数据到模型训练，再到角色姿态生成的流程。
 
@@ -185,7 +192,7 @@ Actor / Component 复用需要协调注册状态、所有权、激活状态、�
 
 **当前阶段**：已完成真实 UE 资产导出、GPU 训练、留出集骨架重建评估，以及 GASP 独立对照场景中的 GPU 推理与 AnimGraph 姿态输出验证。当前模型重建已知源动画；文字生成、玩家意图驱动与正式游戏运行时接入仍待开发和验证。
 
-<details open>
+<details>
 <summary><strong>验证基础、运行时设想与上游边界</strong></summary>
 
 #### 已有验证基础
@@ -230,10 +237,10 @@ UE Editor 构建和三项动画自动化测试通过；RTX 4070 Laptop GPU、60 
 
 </details>
 
-<details open>
+<details>
 <summary><strong>VerseAngelScript / VAS</strong> — 实现、状态与验证边界</summary>
 
-<p><img src="assets/status-early.svg" alt="非常早期" width="87" height="20"> &nbsp; <sub>LANGUAGE / TOOLCHAIN / RIDER</sub></p>
+<sub>早期探索 · LANGUAGE / TOOLCHAIN / RIDER</sub>
 
 **基于 AngelScript 的游戏脚本语言与工具链探索。** 希望在 C++ 风格的类型与对象模型基础上，逐步探索受 Verse 启发的语言能力及 Unreal Engine 开发体验。
 
@@ -246,7 +253,7 @@ UE Editor 构建和三项动画自动化测试通过；RTX 4070 Laptop GPU、60 
 
 **当前阶段**：语言本体仍然非常初步，现阶段工作主要集中在基础工程与工具支持。VAS 自有语言扩展、UE 绑定、热更新和可视化编辑尚未实现。
 
-<details open>
+<details>
 <summary><strong>语言愿景、工具链与尚未实现的部分</strong></summary>
 
 #### 基础来自哪里
@@ -268,10 +275,10 @@ UE Editor 构建和三项动画自动化测试通过；RTX 4070 Laptop GPU、60 
 
 </details>
 
-<details open>
+<details>
 <summary><strong>Hybrid-Motion-Imitation</strong> — 实现、状态与验证边界</summary>
 
-<p><img src="assets/status-planned.svg" alt="已 Fork，尚未开始" width="89" height="20"> &nbsp; <sub>MOTION IMITATION / PLANNED</sub></p>
+<sub>仅 Fork，尚未开始 · MOTION IMITATION</sub>
 
 **为后续动作模仿学习保留的项目。** 目前只是 Fork，还没有开始个人开发或复现。
 
@@ -291,10 +298,11 @@ UE Editor 构建和三项动画自动化测试通过；RTX 4070 Laptop GPU、60 
 - **Engine**：对象生命周期、引擎原生调用路径、对象复用和行为验证。
 - **Animation**：角色运动、动画数据处理，以及学习式动画的游戏工程接入。
 - **Tools & Language**：脚本构建、IDE 支持、诊断反馈与 UE 编辑器工作流。
+- **Agent tooling**：把自己的 Harness 配置收成可安装的插件，而不是只留在本机。
 
 这些是正在实践和学习的方向，不是已经完成的能力清单。欢迎围绕具体实现、问题复现、设计取舍和改进建议交流。
 
-<details open>
+<details>
 <summary>关于进度与来源</summary>
 
 项目状态最初整理于 **2026-09-08**；AIAnimationSystem 进展同步于 **2026-09-23**。公开说明对应各项注明日期的仓库与文档，后续进度、实现和验证以各项目的最新记录为准。
@@ -303,7 +311,7 @@ UE Editor 构建和三项动画自动化测试通过；RTX 4070 Laptop GPU、60 
 
 Fork 项目保留上游来源与适用许可。自有增量、引擎代码、第三方模型和资源不能混为一份个人成果或统一授权的素材库。
 
-视觉更新于 **2026-09-10**。横幅与项目封面为原创矢量设计，不是项目运行截图，也不代表性能测量结果。
+页面于 **2026-10-19** 改成文字目录，长说明默认收起。以前的横幅和项目封面还在 `assets/`，不再显示；它们是装饰图，不是运行截图，也不代表性能测量。说明里保留的 GASP 对照图是实验截图。
 
 </details>
 
