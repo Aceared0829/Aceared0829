@@ -26,7 +26,7 @@
 | 方面 | 内容 |
 |---|---|
 | 方向 | Gameplay · Engine · Animation · Tools & Language |
-| 正在做 | Unreal 侧的 ZeroG / UnrealAgent / AIAnimationSystem，以及 DeepSeek Harness 插件套件 |
+| 在做 | Unreal 侧的 ZeroG / UnrealAgent / AIAnimationSystem，以及 DeepSeek Harness 插件套件 |
 | 原则 | 功能做出来之后，继续追它为什么能跑；实现与验证分开写，上游来源与自己的增量分开写 |
 | 交流 | [在本仓库提 Issue](https://github.com/Aceared0829/Aceared0829/issues)，或到各项目仓库的 Discussion 里说 |
 
