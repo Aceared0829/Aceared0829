@@ -23,12 +23,10 @@
 
 主要和 Unreal Engine / C++ 打交道，做的是玩法、引擎生命周期与角色动画之间需要互相咬合的那一层：GAS 的战斗结构、Actor / Component 的生成与回收、动画数据的导出与推理接入，以及为这些流程配的编辑器工具。
 
-| 方面 | 内容 |
-|---|---|
-| 方向 | Gameplay · Engine · Animation · Tools & Language |
-| 在做 | Unreal 侧的 ZeroG / UnrealAgent / AIAnimationSystem，以及 DeepSeek Harness 插件套件 |
-| 原则 | 功能做出来之后，继续追它为什么能跑；实现与验证分开写，上游来源与自己的增量分开写 |
-| 交流 | [在本仓库提 Issue](https://github.com/Aceared0829/Aceared0829/issues)，或到各项目仓库的 Discussion 里说 |
+- **方向** — Gameplay、Engine、Animation、Tools & Language 四条互相咬合。
+- **在做** — Unreal 侧的 ZeroG、UnrealAgent 与 AIAnimationSystem；以及把这台机器上的 Harness 用法收成别人也能装的插件套件。
+- **原则** — 功能做出来之后继续追它为什么能跑；实现与验证分开写，上游来源与自己的增量分开写。
+- **交流** — [在本仓库提 Issue](https://github.com/Aceared0829/Aceared0829/issues)，或到各项目仓库的 Discussion 里说。
 
 ## Selected work
 
