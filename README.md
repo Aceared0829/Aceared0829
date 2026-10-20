@@ -23,7 +23,7 @@
 
 主要和 Unreal Engine / C++ 打交道，做的是玩法、引擎生命周期与角色动画之间需要互相咬合的那一层：GAS 的战斗结构、Actor / Component 的生成与回收、动画数据的导出与推理接入，以及为这些流程配的编辑器工具。
 
-- **方向** — Gameplay、Engine、Animation、Tools & Language 四条互相咬合。
+- **方向** — Gameplay、Engine、Animation、AI、Tools & Language 五条互相咬合。
 - **在做** — Unreal 侧的 ZeroG、UnrealAgent 与 AIAnimationSystem；以及把这台机器上的 Harness 用法收成别人也能装的插件套件。
 - **原则** — 功能做出来之后继续追它为什么能跑；实现与验证分开写，上游来源与自己的增量分开写。
 - **交流** — [在本仓库提 Issue](https://github.com/Aceared0829/Aceared0829/issues)，或到各项目仓库的 Discussion 里说。
@@ -313,13 +313,13 @@ UE Editor 构建和三项动画自动化测试通过；RTX 4070 Laptop GPU、60 
 
 ## 关注与交流
 
-目前的兴趣集中在四个相互关联的方向：
+目前的兴趣集中在五个相互关联的方向：
 
 - **Gameplay**：GAS、角色战斗、动作数据，以及玩法与动画的协作。
 - **Engine**：对象生命周期、引擎原生调用路径、对象复用和行为验证。
 - **Animation**：角色运动、动画数据处理，以及学习式动画的游戏工程接入。
-- **Tools & Language**：脚本构建、IDE 支持、诊断反馈与 UE 编辑器工作流。
-- **Agent tooling**：把自己的 Harness 配置收成可安装的插件，而不是只留在本机。
+- **AI**：把训练出来的模型接进游戏运行时——动画推理与动作数据训练、世界模型项目里的数据采集，以及让智能体工作流真正落进编辑器。
+- **Tools & Language**：脚本构建、IDE 支持、诊断反馈、UE 编辑器工作流，以及把自己的 Harness 配置收成可安装的插件，而不是只留在本机。
 
 这些是正在实践和学习的方向，不是已经完成的能力清单。欢迎围绕具体实现、问题复现、设计取舍和改进建议交流。
 
