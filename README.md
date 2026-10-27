@@ -24,7 +24,7 @@
 主要和 Unreal Engine / C++ 打交道，做的是玩法、引擎生命周期与角色动画之间需要互相咬合的那一层：GAS 的战斗结构、Actor / Component 的生成与回收、动画数据的导出与推理接入，以及为这些流程配的编辑器工具。
 
 - **方向** — Gameplay、Engine、Animation、AI、Tools & Language 五条互相咬合。
-- **在做** — Unreal 侧的 ZeroG、UnrealAgent 与 AIAnimationSystem；以及把这台机器上的 Harness 用法收成别人也能装的插件套件。
+- **在做** — Unreal 侧的 ZeroG、UnrealAgent 与 MotionWeaver（原 AIAnimationSystem）；以及把这台机器上的 Harness 用法收成别人也能装的插件套件。
 - **原则** — 功能做出来之后继续追它为什么能跑；实现与验证分开写，上游来源与自己的增量分开写。
 - **交流** — [在本仓库提 Issue](https://github.com/Aceared0829/Aceared0829/issues)，或到各项目仓库的 Discussion 里说。
 
@@ -32,11 +32,11 @@
 
 三条线指向同一个问题：模型产出的东西怎么真正进入游戏运行时，而不是停在 notebook 里。
 
-- **动画推理接入** — 在 AIAnimationSystem 里把训练好的姿态模型搬到 UE 动画工作线程：ONNX 导出、模型契约校验、AnimGraph 节点、DirectML GPU 推理，再用固定采样、重叠窗口融合和延迟插值改善连续性。训练侧也是同样一条链路：从 AnimSequence 导出骨架与动作数据，接自定义 UE 骨架的 VQ-VAE / Pose / Root 训练入口，并在留出集上做骨架重建评估。
+- **动画推理接入** — 在 MotionWeaver（原 AIAnimationSystem）里把训练好的姿态模型搬到 UE 动画工作线程：ONNX 导出、模型契约校验、AnimGraph 节点、DirectML GPU 推理，再用固定采样、重叠窗口融合和延迟插值改善连续性。训练侧也是同样一条链路：从 AnimSequence 导出骨架与动作数据，接自定义 UE 骨架及统一 78 骨 SOMA 参考骨架的数据处理、VQ-VAE / Pose / Root 训练入口，并在留出集上做重建与补间基线评估。
 - **动作数据与采集工程** — Zing-0.5 里参与的是 UE 数据采集中台（从 0.1 到 1.0）和第三方游戏的内存采集管线。模型、训练方法与论文写作属于团队工作，我不把那部分算成自己的产出。
 - **智能体落进编辑器** — UnrealAgent 把 Codex / Cursor 的工作流接进 Unreal Editor：Slate 会话面板、ACP 适配、本机 MCP 的结构化编辑器工具，外加参数校验、风险审批和事务审计。推理由外部智能体完成，插件负责编辑器这一侧的契约与执行。
 
-目前的验证到「已知动画的重建」和「独立对照场景里的 GPU 推理输出」为止：文字生成、玩家意图驱动、正式运行时接入都还没做。上游模型（GR00T-WholeBodyControl / MotionBricks）与方法不是我自研的，我的增量在游戏动画工程适配、UE 导出、训练工具和推理实验台。
+目前的验证到「已知动画的重建」「独立对照场景里的 GPU 推理输出」以及「统一 78 骨全量补间基线与分词器码本对照训练」为止：Actor Root 条件预测在离线探针下仍有姿态退化与脚滑，SOMA 全量视图上的姿态主干训练、文字生成、玩家意图闭环和正式运行时接入都还没完成。上游模型（GR00T-WholeBodyControl / MotionBricks）与方法不是我自研的，我的增量在游戏动画工程适配、UE / SOMA 双源数据管线、训练工具和推理实验台。
 
 ## Selected work
 
@@ -50,7 +50,7 @@
 | 编辑器 | [**UnrealAgent**](https://github.com/Aceared0829/UnrealAgent) | 把智能体工作流带进 Unreal Editor。Beta · MIT |
 | 原型 | [**ZeroG**](https://github.com/Aceared0829/ZeroG) | 战斗、角色运动与动画协作的 C++ 原型。开发中 |
 | 引擎 | [**UE Object Pool**](https://github.com/Aceared0829/UnrealEngine/tree/fix/generic-object-pool-lifecycle) | Actor / Component 生命周期与对象复用。访问需授权 |
-| 动画 | [**AIAnimationSystem**](https://github.com/Aceared0829/AIAnimationSystem) | MotionBricks 之上的 UE 动画数据、训练与 GPU 推理。实验阶段 |
+| 动画 | [**MotionWeaver**](https://github.com/Aceared0829/MotionWeaver) | MotionBricks 之上的 UE / SOMA 动画数据、离散姿态训练与 GPU 推理。实验阶段 |
 | 语言 | [**VerseAngelScript**](https://github.com/Aceared0829/VerseAngelScript) | 从脚本约定到 Rider 开发体验。早期探索 |
 
 阅读储备：[Hybrid-Motion-Imitation](https://github.com/Aceared0829/Hybrid-Motion-Imitation) 目前仅 Fork，尚无个人实现或复现成果。
@@ -75,10 +75,11 @@
 
 把这台机器上的插件用法整理成别人也能装的库。对方需要已经有 DeepSeek Harness；安装器不负责重做桌面端。
 
-- 自己写的插件放源码：Grok 连接、desktop-extras、桌宠桥接与生命周期。
-- 别人发布的插件只记包名和版本，安装时从 npm 装。
-- 空的设置层才会写入模板。已有设置不会被覆盖。
-- 账号、令牌、本机路径不入库。Grok 要自己登录。桌宠本体在另一个仓库，没填目录不会自启。
+- 自己写的插件放源码：Grok 连接（`dsh-connect-grok`）、`desktop-extras`、对话看图（`dsh-image-viewer`）、会话证据面板（`harness-eval`）、桌宠生命周期（`dsh-pet-lifecycle`）；另有一份仅在库内归档源码、尚未启用也未列入清单的 `dsh-chatgpt-account`。
+- 本地修改过的插件也随库分发源码：`dsh-connect-workbuddy` 中文本地构建。
+- 别人发布的插件在 [`manifest.json`](https://github.com/Aceared0829/dsh-kit/blob/main/manifest.json) 里记包名和版本（或 Git 提交，含 `dsh-genui`、`dsh-context`、`dsh-claude-style`、`dsh-skills-manager`、`liang-intensity-skin` 等），安装时从 npm / GitHub 装；同时按需开启 Harness 自带实验包（目标机器缺失则跳过）。对上游 [`omdsh-dev/dsh-genui`](https://github.com/omdsh-dev/dsh-genui) 的围栏解析修复见 [Fork](https://github.com/Aceared0829/dsh-genui) / [PR #375](https://github.com/omdsh-dev/dsh-genui/pull/375)。
+- 空的设置层才会写入模板，已有设置不会被覆盖；首次安装会按需向 profile 的 `pnpm-workspace.yaml` 补齐 `allowBuilds` 等 pnpm 11 必需项。
+- 账号、令牌、本机路径不入库。Grok 与 WorkBuddy 要自己登录；桌宠本体在另一个仓库，没填 `petDir` 不会自启。
 
 [dsh-kit](https://github.com/Aceared0829/dsh-kit)
 
@@ -205,28 +206,27 @@ Actor / Component 复用需要协调注册状态、所有权、激活状态、�
 </details>
 
 <details>
-<summary><strong>AIAnimationSystem</strong> — 实现、状态与验证边界</summary>
+<summary><strong>MotionWeaver（原 AIAnimationSystem）</strong> — 实现、状态与验证边界</summary>
 
 <sub>实验阶段 · ANIMATION / DATA / TRAINING</sub>
 
-**面向 Unreal Engine 的 AI 角色动画实验。** 基于 NVIDIA GR00T-WholeBodyControl / MotionBricks，探索从游戏动画数据到模型训练，再到角色姿态生成的流程。
+**面向 Unreal Engine 的 AI 角色动画实验。** 基于 NVIDIA GR00T-WholeBodyControl / MotionBricks，探索从游戏与动捕数据、离散姿态训练到 UE 动画线程推理的完整链路。仓库重组后统一命名为 `MotionWeaver`（Python 包 `motionweaver`）。
 
 **已有实践**
 
-- **UE 动画导出**：实验性 Editor 插件从 AnimSequence 采样并导出骨架、参考姿态和动作数据。
-- **数据约束与预处理**：保留原生帧率和逐帧时间，处理坐标、骨架与语义映射；增加名称规则标签、家族划分和仅训练帧统计量。
-- **训练工具入口**：增加自定义 UE 骨架的 VQ-VAE、Pose、Root 训练入口，以及检查点保存、续训和指标记录。
-- **质量评估与推理导出**：加入真实帧掩码、几何监督和短姿态采样，提供原生时间 HTML 对照、量化旁路诊断及完整/仅解码 FP32 推理包。
+- **UE 动画导出与双源统一骨架管线**：实验性 Editor 插件从 AnimSequence 采样并导出骨架与动作数据；新增离线重定向与批处理管线，把 30 FPS UE 角色动作与 120 FPS SOMA 动捕数据统一到固定 78 骨 `soma_uniform_v1` 参考骨架，构建双帧率、四场景训练视图 `full-v1`。
+- **数据约束、预处理与读取优化**：保留原生帧率与逐帧时间，处理坐标、骨架与语义映射；训练读取改为直读四键 `float32` 四元数 NPZ 并在 DataLoader worker 内按批计算特征。
+- **训练工具入口**：提供 79 骨自定义 UE 骨架与 78 骨 SOMA 统一骨架的 VQ-VAE、Pose、Root 训练入口，以及检查点保存、续训、码本初始化 A/B 与指标记录。
+- **质量评估与推理导出**：加入真实帧掩码、几何监督、短姿态采样、非学习补间基线（Hold / Lerp）与难度分层相关性诊断；提供原生时间 HTML 对照、量化旁路诊断及完整/仅解码 FP32 推理包。
 - **参考演示适配**：对上游工程做游戏动画方向的裁剪，补充中文交互界面和 Windows 参考演示启动器。
-
 - **GASP 推理实验台**：新增 ONNX 导出、模型契约校验和 AnimGraph 节点，在动画工作线程执行 DirectML GPU 推理；通过固定采样、重叠窗口融合、延迟插值与静止保护改善重建连续性。
 
-**当前阶段**：已完成真实 UE 资产导出、GPU 训练、留出集骨架重建评估，以及 GASP 独立对照场景中的 GPU 推理与 AnimGraph 姿态输出验证。当前模型重建已知源动画；文字生成、玩家意图驱动与正式游戏运行时接入仍待开发和验证。
+**当前阶段**：已完成真实 UE 资产导出、79 骨 VQ-VAE 重建与 GASP 动画线程 GPU 推理验证，以及 78 骨 SOMA `full-v1` 全量训练视图构建、非学习补间基线评测和 `fps120` 分词器 3 epoch 码本初始化对照训练。Actor Root 条件预测在离线探针下仍有姿态退化与脚滑，SOMA `full-v1` 上的姿态主干尚未开训，文字生成、玩家可操控闭环与正式游戏运行时接入仍待完成。
 
 <details>
 <summary><strong>验证基础、运行时设想与上游边界</strong></summary>
 
-#### 已有验证基础
+#### 已有验证基础（79 骨 UEFN Mannequin VQ-VAE）
 
 UE 5.8.2 插件实际导出 1,728 段 UEFN Mannequin 动画，保留原生 30/60 FPS。30 FPS 数据划分为 1,355 段训练、189 段验证、178 段测试；两轮 VQ-VAE 均在 RTX 4070 Laptop GPU 上训练 20,000 步，完整网络保持约 2,540 万参数。
 
@@ -240,7 +240,7 @@ UE Editor 构建和三项动画自动化测试通过；RTX 4070 Laptop GPU、60 
 
 默认采用 30 Hz 输入、每 4 帧推理一次和 8 帧延迟融合，播放延迟约 267 ms；同步推理均值 2.055 ms、P95 2.755 ms，包含传输与等待。同源时间区间的主要运动二阶差分降低约 49%–65%，但 Idle 位置误差及 Traversal 旋转误差仍有局限。此结果用于评估重建连续性与推理开销，尚未覆盖完整玩法、打包、多角色并发或长时运行。
 
-[![GASP Walk：延迟对齐的源动画与 GPU 重建对照](https://raw.githubusercontent.com/Aceared0829/AIAnimationSystem/6a2dba3416172526eada3b1240559c04739d0995/unreal-script/AIAnimation/docs/images/walk_comparison.png)](https://github.com/Aceared0829/AIAnimationSystem/blob/main/unreal-script/AIAnimation/README.md)
+[![GASP Walk：延迟对齐的源动画与 GPU 重建对照](https://raw.githubusercontent.com/Aceared0829/MotionWeaver/6a2dba3416172526eada3b1240559c04739d0995/unreal-script/AIAnimation/docs/images/walk_comparison.png)](https://github.com/Aceared0829/MotionWeaver/blob/main/unreal-script/AIAnimation/README.md)
 
 <sub>实际实验截图；左右角色按同一源时间对齐。点击查看推理链路、连续性图表、性能报告和复现步骤。</sub>
 
@@ -250,21 +250,35 @@ UE Editor 构建和三项动画自动化测试通过；RTX 4070 Laptop GPU、60 
 
 在一条低障碍动画、用户选择的六个参考帧上，软→硬平均关节误差为 **11.322→6.903 cm**；六个参考帧通过等式约束精确到位。加速度误差 **4.008→4.186 cm/帧²**，因此不能宣称消除抽搐。零关键帧误差是后处理约束的结果，不是模型预测精度。当前仍读取完整已知动画窗口，代理模式含已知未来；没有完成稀疏参考生成未知过渡或 UE 跑酷代理执行。
 
-[手选实验室与软/硬对照](https://github.com/Aceared0829/AIAnimationSystem/blob/main/inference/profiling/pose-reference-lab.md) · [审查修复与验证范围](https://github.com/Aceared0829/AIAnimationSystem/blob/main/inference/profiling/pose-reference-review.md)
+[手选实验室与软/硬对照](https://github.com/Aceared0829/MotionWeaver/blob/main/inference/profiling/pose-reference-lab.md) · [审查修复与验证范围](https://github.com/Aceared0829/MotionWeaver/blob/main/inference/profiling/pose-reference-review.md)
+
+#### Actor Root 条件训练与离线边界诊断（2026-09-28）
+
+基于 4 帧历史姿态与 Actor 世界轨迹条件，在 1,722 段 UE 数据、单卡 A800 上从零训练 Pose Token 主干 20,000 步。固定验证口径下，掩码姿态 Token 交叉熵从 2,000 步的 **1.862 nats 降至 1.454 nats（−21.9%）**。
+
+但离线对比同时暴露明确边界：在 3 条同轨迹对照片段中，仅 Walk 世界关节 RMSE 改善（**6.72 → 6.03 cm**），Run（**7.36 → 12.00 cm**）与 Crouch（**5.87 → 8.25 cm**）退化；换用另录的 CMC 轨迹探针时，90° 转向仅使局部关节姿态变化 **0.50 cm**，蹲伏状态未作为条件输入因而模型保持直立，循环片段接触期脚滑（**0.78–0.88 m/s**，来源 **0.03–0.07 m/s**）仍远高于源动作。Token 交叉熵下降不等于玩家可操控质量达标。
+
+#### SOMA 78 骨双源管线、全量基线与分词器码本 A/B（2026-10-18 ~ 10-27）
+
+- **双源重定向与 `full-v1` 训练视图**：将既有 UE 导出离线重定向到固定 `soma_uniform_v1` 78 骨参考骨架（**1,969 条**完成，1 条重试后待复核，保留 30 FPS；离线 FK 映射，未做接触 IK 或蒙皮验收），并完成 SOMA 非镜像全库 **71,132 条**（120.0048 FPS）处理（I/O 与 FK 优化使处理吞吐提升至约 **1.69–1.80 倍**且 24 次数组逐项核对等价）。合并构建 `full-v1` 训练视图共 **72,933 条**（占登记总量 73,101 条的 **99.77%**，排除 168 条短帧姿势资产）、**1,166,446 个训练窗口**（四场景 A 28,233 / B 14,820 / C 2,743 / D 27,137 条）。训练读取改为直读四键 `float32` 四元数 NPZ（单条读取 **96.8 → 18.4 ms**，体积压缩 **2.12×**）并在 worker 内按批计算特征（单条特征耗时 **125.6 → 0.4 ms**）。
+- **全量非学习补间基线与混杂分析**：在 `full-v1` 的 `fps120` 测试集（6,935 段 / **121,058 窗口** × 4 档参考，共 968,464 条样本）上建立零训练成本的 Hold 与 Lerp 离线上界基线（`middle_and_end` 下 Lerp 关节 RMSE 为 **6.593 cm**，较 Hold **20.465 cm** 降低 67.8%，但接触期脚速均值仍为源动作的 **21 倍**）。按 Hold RMSE 十分位分层控制窗口难度后，姿态 RMSE 与接触期脚速的层内中位相关从总体 **r = 0.645–0.794** 降至 **r = 0.147–0.279**（降幅 **65%–77%**），表明仅优化关节 RMSE 不能预期消除脚滑。该评测使用真实动作的 oracle Root 与启发式接触标签，不含训练模型结果。
+- **分词器码本初始化 A/B（3 epoch）**：在 `full-v1` 的 `fps120` 组（**57,058 条**训练样本、48 帧窗口、batch 4、FP32）上将 VQ-VAE 分词器训满 3 个 epoch（**42,791 步**），对比随机初始化与首批 k-means 初始化。末段 10%（4,279 步）总 loss 中位数随机初始化为 **0.4026**、k-means 为 **0.5165**（随机低 **28.3%**），重建损失中位数持平（**0.1632 vs 0.1656**）；k-means 的 commit 损失中位数虽低 36.9%（**0.2247 vs 0.3559**），但单头 perplexity 在前 25k 步长期压在 2 附近（8 头乘积量化、单头上限 10，随机初始化末段均值 **5.2925**），说明低 commit 来自码本延迟启动而非更优量化，因此维持随机初始化默认设置。目前仅分词器在 `full-v1` 上完成 3 epoch 训练，**姿态主干尚未在 SOMA `full-v1` 上开训**。
+
+[实验索引](https://github.com/Aceared0829/MotionWeaver/blob/main/docs/experiments/README.md) · [UE→SOMA 重定向](https://github.com/Aceared0829/MotionWeaver/blob/main/docs/uefn-soma-retarget.md) · [SOMA 全量构建](https://github.com/Aceared0829/MotionWeaver/blob/main/docs/soma-full-processing.md) · [全量补间基线](https://github.com/Aceared0829/MotionWeaver/blob/main/docs/soma-inbetweening-baseline-full-v1.md) · [姿态—接触相关性分析](https://github.com/Aceared0829/MotionWeaver/blob/main/paper/analysis/README.md) · [分词器码本 A/B](https://github.com/Aceared0829/MotionWeaver/blob/main/docs/soma-tokenizer-codebook-init-ab.md) · [技术报告（HTML / PDF）](https://github.com/Aceared0829/MotionWeaver/blob/main/paper/README.md)
 
 #### 后续运行时方向
 
-计划由 CMC / Mover 负责移动模拟，动画模型依据实际运动状态与轨迹条件生成姿态。现有推理插件用于实验和性能验证；生产运行时接口、条件生成、目标骨架适配、重定向、接触修正和多人联机仍需逐项实现与验证。
+计划由 CMC / Mover 负责移动模拟，动画模型依据实际运动状态与轨迹条件生成姿态。现有推理插件用于实验和性能验证；SOMA `full-v1` 上的姿态主干训练、生产运行时接口、条件生成、目标骨架适配、接触修正和多人联机仍需逐项实现与验证。
 
 #### 上游与个人增量
 
-模型架构、动作表示、原训练 / 推理代码、G1 权重与参考演示来自 NVIDIA / MotionBricks。这里的新增工作主要是游戏动画工程适配、UE 导出、自定义骨架训练工具、动画线程推理实验台与连续性评估，不将上游模型或演示作为个人自研成果。
+模型架构、动作表示、原训练 / 推理代码、G1 权重与参考演示来自 NVIDIA / MotionBricks。这里的新增工作主要是游戏动画工程适配、UE 导出与 SOMA 双源数据管线、自定义骨架训练工具、动画线程推理实验台与连续性评估，不将上游模型或演示作为个人自研成果。
 
-现有 G1 权重与参考骨架绑定；自定义 UE 训练入口不支持直接加载 G1 权重微调，也不能把 G1 参考演示当作 UE 实时运行效果。
+现有 G1 权重与参考骨架绑定；自定义 UE / SOMA 训练入口不支持直接加载 G1 权重微调，也不能把 G1 参考演示当作 UE 实时运行效果。
 
 </details>
 
-[项目仓库](https://github.com/Aceared0829/AIAnimationSystem) · [UE 导出与训练](https://github.com/Aceared0829/AIAnimationSystem/blob/main/unreal-script/AILocomotionSystem/README.md) · [训练结果与限制](https://github.com/Aceared0829/AIAnimationSystem/blob/main/unreal-script/AILocomotionSystem/TrainingResults.md) · [GASP 推理实验与效果](https://github.com/Aceared0829/AIAnimationSystem/blob/main/unreal-script/AIAnimation/README.md)
+[项目仓库](https://github.com/Aceared0829/MotionWeaver) · [实验总览](https://github.com/Aceared0829/MotionWeaver/blob/main/docs/experiments/README.md) · [技术报告](https://github.com/Aceared0829/MotionWeaver/blob/main/paper/README.md) · [UE 导出与训练](https://github.com/Aceared0829/MotionWeaver/blob/main/unreal-script/AILocomotionSystem/README.md) · [79 骨训练记录](https://github.com/Aceared0829/MotionWeaver/blob/main/unreal-script/AILocomotionSystem/TrainingResults.md) · [GASP 推理实验与效果](https://github.com/Aceared0829/MotionWeaver/blob/main/unreal-script/AIAnimation/README.md)
 
 </details>
 
@@ -336,13 +350,13 @@ UE Editor 构建和三项动画自动化测试通过；RTX 4070 Laptop GPU、60 
 <details>
 <summary>关于进度与来源</summary>
 
-项目状态最初整理于 **2026-09-08**；AIAnimationSystem 进展同步于 **2026-09-23**。公开说明对应各项注明日期的仓库与文档，后续进度、实现和验证以各项目的最新记录为准。
+项目状态最初整理于 **2026-09-08**；MotionWeaver（原 AIAnimationSystem）与 dsh-kit 进展同步至 **2026-10-27**。公开说明对应各项注明日期的仓库与文档，后续进度、实现和验证以各项目的最新记录为准。
 
 编译成功、自动化测试通过、真实场景运行与完整交付是不同层次的验证；页面中引用的验证记录只适用于各自注明的版本与范围。
 
 Fork 项目保留上游来源与适用许可。自有增量、引擎代码、第三方模型和资源不能混为一份个人成果或统一授权的素材库。
 
-页面于 **2026-10-19** 换成随深浅主题切换的字标和项目目录，长说明默认收起；**2026-10-20** 在导航与项目目录之间补了「关于我」，并把 AI 单独成一节。旧的全宽封面还在 `assets/`，不再显示。说明里保留的 GASP 对照图是实验截图，不是装饰。
+页面于 **2026-10-19** 换成随深浅主题切换的字标和项目目录，长说明默认收起；**2026-10-20** 在导航与项目目录之间补了「关于我」，并把 AI 单独成一节；**2026-10-27** 将 AIAnimationSystem 同步更名为 MotionWeaver，补充 SOMA 78 骨双源管线、全量补间基线、分词器码本 A/B 与技术报告记录，并更新 dsh-kit 插件清单说明。旧的全宽封面还在 `assets/`，不再显示。说明里保留的 GASP 对照图是实验截图，不是装饰。
 
 </details>
 
