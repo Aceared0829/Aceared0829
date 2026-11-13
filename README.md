@@ -46,6 +46,7 @@
 |---|---|---|
 | 工具 | [**dsh-kit**](https://github.com/Aceared0829/dsh-kit) | 插件源码、版本清单和一键安装。不含账号和本机路径。 |
 | 工具 | [**deepseek-harness**](https://github.com/Aceared0829/deepseek-harness) | 官方 Harness 的个人 fork。引擎在这里，插件不在这里。 |
+| 工具 | [**pkg-installer**](https://github.com/Aceared0829/pkg-installer) | 在 Arch 上把 .deb / .rpm / .AppImage / .flatpak 装进家目录；先查官方库和 AUR，不写入 pacman 数据库。 |
 | 论文 | [**Zing-0.5**](https://arxiv.org/abs/2609.17909) | 署名作者；个人部分是游戏数据采集工程。[仓库](https://github.com/seedleap/zing-world-model) |
 | 编辑器 | [**UnrealAgent**](https://github.com/Aceared0829/UnrealAgent) | 把智能体工作流带进 Unreal Editor。Beta · MIT |
 | 原型 | [**ZeroG**](https://github.com/Aceared0829/ZeroG) | 战斗、角色运动与动画协作的 C++ 原型。开发中 |
@@ -84,6 +85,17 @@
 [dsh-kit](https://github.com/Aceared0829/dsh-kit)
 
 [![](https://img.shields.io/badge/powered_by-dsh-4D6BFE?style=flat-square&logo=deepseek&logoColor=white)](https://github.com/deepseek-ai/deepseek-harness)
+
+</details>
+
+<details>
+<summary><strong>pkg-installer</strong> — Arch 上的跨格式用户目录安装器</summary>
+
+在 Arch 上处理只提供 `.deb`、`.rpm`、`.AppImage` 或 `.flatpak` 的软件：安装前先查官方库和 AUR，有同名包就提示改用原生包；再把自包含部分解到或登记进家目录，不写入 pacman 数据库。`.AppImage` / `.flatpak` 做的是登记（图标、菜单、启动项），不是把内容摊进系统。
+
+自建 pacman 源和 `makepkg` 仍需要系统权限；源目前未签名，安装说明里要求为该仓库单独写 `SigLevel = Optional TrustAll`。不处理 snap、Arch 自家 `.pkg.tar.zst` 和 Alpine `.apk`，也不执行维护者脚本。公开仓库里还没有自动化测试或 CI。当前说明对应 [v2.2.0](https://github.com/Aceared0829/pkg-installer/releases/tag/v2.2.0)（2026-11-14）。
+
+[pkg-installer](https://github.com/Aceared0829/pkg-installer) · [安装源](https://aceared0829.github.io/pkg-installer/)
 
 </details>
 
@@ -350,13 +362,13 @@ UE Editor 构建和三项动画自动化测试通过；RTX 4070 Laptop GPU、60 
 <details>
 <summary>关于进度与来源</summary>
 
-项目状态最初整理于 **2026-09-08**；MotionWeaver（原 AIAnimationSystem）与 dsh-kit 进展同步至 **2026-10-27**。公开说明对应各项注明日期的仓库与文档，后续进度、实现和验证以各项目的最新记录为准。
+项目状态最初整理于 **2026-09-08**；MotionWeaver（原 AIAnimationSystem）与 dsh-kit 进展同步至 **2026-10-27**；pkg-installer 同步至 **2026-11-14**。公开说明对应各项注明日期的仓库与文档，后续进度、实现和验证以各项目的最新记录为准。
 
 编译成功、自动化测试通过、真实场景运行与完整交付是不同层次的验证；页面中引用的验证记录只适用于各自注明的版本与范围。
 
 Fork 项目保留上游来源与适用许可。自有增量、引擎代码、第三方模型和资源不能混为一份个人成果或统一授权的素材库。
 
-页面于 **2026-10-19** 换成随深浅主题切换的字标和项目目录，长说明默认收起；**2026-10-20** 在导航与项目目录之间补了「关于我」，并把 AI 单独成一节；**2026-10-27** 将 AIAnimationSystem 同步更名为 MotionWeaver，补充 SOMA 78 骨双源管线、全量补间基线、分词器码本 A/B 与技术报告记录，并更新 dsh-kit 插件清单说明。旧的全宽封面还在 `assets/`，不再显示。说明里保留的 GASP 对照图是实验截图，不是装饰。
+页面于 **2026-10-19** 换成随深浅主题切换的字标和项目目录，长说明默认收起；**2026-10-20** 在导航与项目目录之间补了「关于我」，并把 AI 单独成一节；**2026-10-27** 将 AIAnimationSystem 同步更名为 MotionWeaver，补充 SOMA 78 骨双源管线、全量补间基线、分词器码本 A/B 与技术报告记录，并更新 dsh-kit 插件清单说明。**2026-11-14** 在项目目录中补上 pkg-installer（Arch 上的跨格式用户目录安装器）。旧的全宽封面还在 `assets/`，不再显示。说明里保留的 GASP 对照图是实验截图，不是装饰。
 
 </details>
 
