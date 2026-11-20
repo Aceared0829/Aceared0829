@@ -14,8 +14,6 @@
 <p align="center">
   <a href="#项目">项目</a>
   &nbsp;&nbsp;·&nbsp;&nbsp;
-  <a href="#上游贡献">上游贡献</a>
-  &nbsp;&nbsp;·&nbsp;&nbsp;
   <a href="#联系">联系</a>
 </p>
 
@@ -46,12 +44,6 @@
 | [**Zing-0.5**](https://arxiv.org/abs/2609.17909) | 世界模型论文署名作者；个人贡献是 UE 数据采集中台与采集管线 | 团队项目 |
 
 `deepseek-harness` 是官方仓库的个人 fork，用来跑自建的 Windows 桌面端，插件部分在 dsh-kit。`Hybrid-Motion-Imitation` 目前仅 Fork，尚无个人实现。
-
-## 上游贡献
-
-- **[CachyOS/packageinstaller #85](https://github.com/CachyOS/packageinstaller/pull/85)** — 简体 / 繁体中文界面与语言设置（open）
-- **[omdsh-dev/dsh-genui #375](https://github.com/omdsh-dev/dsh-genui/pull/375)** — 修复围栏解析中的单元素数组成员键（merged）
-- **[EpicGames/UnrealEngine #15156](https://github.com/EpicGames/UnrealEngine/pull/15156)** — Actor / Component 生命周期与对象复用（open，需访问权限）
 
 ## 联系
 
